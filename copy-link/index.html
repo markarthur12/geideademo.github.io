@@ -41,7 +41,7 @@ and is wrapped around the whole page content, except for the footer in this exam
   <header class="w3-display-container w3-wide" id="home">
     <img class="w3-image" src="../img/merchant.png" alt="Geidea" width="1600" height="1060">
     <div class="w3-display-topmiddle w3-padding-large">
-      <h6><button id="generateLink" class="w3-button w3-deep-orange w3-padding-large w3-large w3-opacity w3-hover-opacity-off" onclick="document.getElementById('subscribe').style.display='block'">GENERATE PAYMENT LINK</button></h6>
+      <h6><button id="generateLink" data-toggle="modal" data-target="#myModal" class="w3-button w3-deep-orange w3-padding-large w3-large w3-opacity w3-hover-opacity-off" onclick="document.getElementById('subscribe').style.display='block'">GENERATE PAYMENT LINK</button></h6>
  
 
    </div>
@@ -60,12 +60,47 @@ and is wrapped around the whole page content, except for the footer in this exam
             <label id="link"  for="link" hidden></label>
         </div>
       <div class="w3-display-topmiddle w3-padding-large">
- <h6><button id="copyLink" class="w3-button w3-gray w3-padding-large w3-large w3-opacity w3-hover-opacity-off" onclick="document.getElementById('subscribe').style.display='block'">COPY THE LINK</button></h6>
+ <h6><button id="copyLink" data-toggle="modal" data-target="#myModal2" class="w3-button w3-gray w3-padding-large w3-large w3-opacity w3-hover-opacity-off" onclick="document.getElementById('subscribe').style.display='block'">COPY THE LINK</button></h6>
 
 </header>
  </div>
  </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Email has been initited</h4>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Url copied successfully</h4>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
 </html>
 <!-- Footer -->
@@ -78,6 +113,11 @@ and is wrapped around the whole page content, except for the footer in this exam
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js" /></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" /></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data-10-year-range.min.js"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
     <script>
         $(document).ready(function () {
             $("#copyLink").click(function () {
@@ -88,7 +128,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                 urlEnd = urlEnd - 3;
                 var url = generatedLink.substring(urlStart, urlEnd);
                 navigator.clipboard.writeText(url);
-                alert("Url Copied successfully");
+                //alert("Url Copied successfully");
             });
             $("#generateLink").click(function () {
 
@@ -115,7 +155,7 @@ and is wrapped around the whole page content, except for the footer in this exam
                             phone: "1234567890",
                             mobilePhone: "1234567890",
                             fax: "1234567890",
-                            email: "sidra.chaudhary@geidea.net",
+                            email: "gitex.uae@geidea.net",
                         },
                     },
                 };
@@ -168,7 +208,9 @@ and is wrapped around the whole page content, except for the footer in this exam
 						//document.getElementById("pbl").value=xhr.responseText;
                         $('#copyLink').show();
                          $('#link').text(xhr.responseText);
-						 alert("Email has been initited ");
+
+						 document.getElementsById("demo").innerHTML = "I have changed!";
+
                     }
                 }
             });
