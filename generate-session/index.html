@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <script src="https://ap-gateway.mastercard.com/static/checkout/checkout.min.js" data-error="errorCallback" data-cancel="cancelCallback"></script>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript">
+            function errorCallback(error) {
+                  console.log(JSON.stringify(error));
+            }
+
+            function cancelCallback() {
+                  console.log('Payment cancelled');
+            }
+
+            const generateSessionId = () => {
+                console.log('test');
+                
+                // WARNING: For POST requests, body is set to null by browsers.
+                    var data = JSON.stringify({
+                    "apiOperation": "INITIATE_CHECKOUT",
+                    "order": {
+                        "id": "-01",
+                        "currency": "AED",
+                        "description": "Orderedgoods",
+                        "amount": "1"
+                    },
+                    "interaction": {
+                        "operation": "PURCHASE",
+                        "returnUrl": "https://www.google.com/"
+                    }
+                    });
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.withCredentials = true;
+
+                    xhr.addEventListener("readystatechange", function() {
+                    if(this.readyState === 4) {
+                        console.log(this.responseText);
+                    }
+                    });
+
+                    xhr.open("POST", "https://ap-gateway.mastercard.com/api/rest/version/63/merchant/TEST999999124/session");
+                    xhr.setRequestHeader("Authorization", "Basic bWVyY2hhbnQuVEVTVDk5OTk5OTEyNDo1YTM3MzFhYThlYTEwMmJjMGZkMWY0MmJiODY2MDgxOQ==");
+                    xhr.setRequestHeader("Content-Type", "application/json");
+                    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+
+                    xhr.send(data);
+            };
+
+            Checkout.configure({
+              session: { 
+            	id: 'SESSION0002708018007K79492270G4'
+       			},
+              interaction: {
+                    merchant: {
+                        name: 'Testing Geidea',
+                        address: {
+                            line1: '200 Sample St',
+                            line2: '1234 Example Town'            
+                        }    
+                    }
+               }
+            });
+        </script>
+    </head>
+    <body>
+       ...
+      <div id="embed-target"> </div> 
+      <input type="button" value="Pay with Embedded Page" onclick="Checkout.showEmbeddedPage('#embed-target');" />
+      <input type="button" value="Pay with Payment Page" onclick="generateSessionId()" />
+       ...
+    </body>
+</html>
